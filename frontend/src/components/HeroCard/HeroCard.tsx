@@ -5,21 +5,28 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Hero } from '../../types/hero.type';
+import { Link } from 'react-router-dom';
 
-export const HeroCard = () => {
+
+export const HeroCard: React.FC<Hero> = ({ nickname, real_name, origin_description, superpowers, catch_phrase, images }) => {
   return (
     <Card sx={{ minWidth: 345, mb: 5 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="https://i.scdn.co/image/ab67616d0000b2733bca70eb1b6154673ea8b199"
+        sx={{ height: 140, backgroundSize: 'contain' }}
+        image={images.length > 0 ? images[0].url : './image_not_found.svg'}
       />
       <CardContent>
         <Typography textAlign={'center'} gutterBottom variant="h5" component="div">
-          TITLE
+          Nickname:
+          <br />
+          {nickname}
         </Typography>
       </CardContent>
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant='contained' color='primary' size="medium">Learn More</Button>
+        <Link to='/'>
+          <Button variant='contained' color='primary' size="medium">Learn More</Button>
+        </Link>
       </CardActions>
     </Card>
   );

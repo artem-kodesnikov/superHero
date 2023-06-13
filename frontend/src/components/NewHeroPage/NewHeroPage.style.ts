@@ -3,11 +3,10 @@ import { styled } from '@mui/system';
 import { Field, Form } from 'formik';
 
 export const StyledContainer = styled(Container)(() => ({
-  height: '100vh',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center'
+  marginTop: '50px'
 }));
 
 export const StyledField = styled(Field)(() => ({
@@ -59,3 +58,21 @@ export const style = {
   boxShadow: 24,
   p: 4,
 };
+
+export const previewImagesBox = {
+  mb: 3, 
+  display: 'flex', 
+  flexWrap: 'wrap', 
+  justifyContent: 'center'
+}
+export const previewImageBox = {
+  display: "flex", 
+  alignItems: "center", 
+  flexDirection: "column", 
+  marginRight: "20px"
+}
+
+export const previewImage = {
+  height: '100px', 
+  marginBottom: '20px',
+}

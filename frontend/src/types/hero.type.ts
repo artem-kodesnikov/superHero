@@ -4,5 +4,5 @@ export interface Hero {
   origin_description: string,
   superpowers: string,
   catch_phrase: string,
-  images: string[]
+  images: { url: string }[]
 }

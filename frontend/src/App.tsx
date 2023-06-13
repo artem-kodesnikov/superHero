@@ -13,7 +13,7 @@ export const App = () => {
       />
       <Route
         path='/hero/:id'
-      // element={<RecipePage />}
+        // element={<HeroCard />}
       />
       <Route
         path='/createHero'
