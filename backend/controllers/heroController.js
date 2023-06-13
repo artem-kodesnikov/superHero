@@ -13,8 +13,8 @@ class heroController {
 
   async createHero(req, res) {
     try {
-      const { nickname, real_name, origin_description, superpowers, catch_phrase } = req.body;
-      const hero = new Hero({ nickname, real_name, origin_description, superpowers, catch_phrase });
+      const { nickname, real_name, origin_description, superpowers, catch_phrase, images } = req.body;
+      const hero = new Hero({ nickname, real_name, origin_description, superpowers, catch_phrase, images });
       await hero.save();
       return res.status(201).send(hero);
     } catch (e) {

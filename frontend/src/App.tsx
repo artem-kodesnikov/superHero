@@ -1,20 +1,24 @@
 import React from 'react';
-import { Container } from '@mui/material';
-import { HeroCard } from './components/HeroCard';
-import { Header } from './components/Header';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from './components/HomePage/HomePage';
+import { NewHeroPage } from './components/NewHeroPage/NewHeroPage';
 
-function App() {
+export const App = () => {
   return (
-    <>
-      <Header />
-      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 5 }} maxWidth="sm">
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-      </Container>
-    </>
+    <Routes>
+      <Route
+        path='/'
+        index
+        element={<HomePage />}
+      />
+      <Route
+        path='/hero/:id'
+      // element={<RecipePage />}
+      />
+      <Route
+        path='/createHero'
+        element={<NewHeroPage />}
+      />
+    </Routes>
   );
 }
-
-export default App;

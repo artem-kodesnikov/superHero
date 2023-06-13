@@ -6,7 +6,7 @@ const Hero = new Schema({
   origin_description: { type: String, required: true },
   superpowers: { type: String, required: true },
   catch_phrase: { type: String, required: true },
-  // images: {type: Buffer, required: true},
+  images: { type: Array, of: String, required: true }
 })
 
 export default model('Hero', Hero)
