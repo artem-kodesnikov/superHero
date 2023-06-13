@@ -42,7 +42,7 @@ class heroController {
       });
 
       if (!hero) {
-        return res.status(404).send('Герой не знайдений');
+        return res.status(404).send('Hero is not found');
       }
 
       return res.status(200).send(hero);
