@@ -18,7 +18,7 @@ export const HeroesList = () => {
   return (
     <div>
       {heroes.map((hero) =>
-        <HeroCard {...hero} />
+        <HeroCard key={hero._id} {...hero} />
       )}
     </div>
   )

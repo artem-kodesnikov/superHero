@@ -8,8 +8,12 @@ import Typography from '@mui/material/Typography';
 import { Hero } from '../../types/hero.type';
 import { Link } from 'react-router-dom';
 
+interface Props extends Hero {
+  _id: string,
+}
 
-export const HeroCard: React.FC<Hero> = ({ nickname, real_name, origin_description, superpowers, catch_phrase, images }) => {
+export const HeroCard: React.FC<Props> = ({ _id, nickname, real_name, origin_description, superpowers, catch_phrase, images }) => {
+  console.log(_id)
   return (
     <Card sx={{ minWidth: 345, mb: 5 }}>
       <CardMedia
@@ -24,7 +28,7 @@ export const HeroCard: React.FC<Hero> = ({ nickname, real_name, origin_descripti
         </Typography>
       </CardContent>
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link to='/'>
+        <Link to={`hero/${_id}`}>
           <Button variant='contained' color='primary' size="medium">Learn More</Button>
         </Link>
       </CardActions>

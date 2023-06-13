@@ -1,4 +1,5 @@
 export interface Hero {
+  _id: string,
   nickname: string,
   real_name: string,
   origin_description: string,

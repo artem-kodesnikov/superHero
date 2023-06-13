@@ -34,6 +34,7 @@ export const NewHeroPage = () => {
       <StyledContainer maxWidth="lg">
         <Formik
           initialValues={{
+            _id: '',
             nickname: '',
             real_name: '',
             origin_description: '',

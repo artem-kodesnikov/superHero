@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { HeroPage } from './components/HeroPage/HeroPage';
 import { HomePage } from './components/HomePage/HomePage';
 import { NewHeroPage } from './components/NewHeroPage/NewHeroPage';
 
@@ -13,7 +14,7 @@ export const App = () => {
       />
       <Route
         path='/hero/:id'
-        // element={<HeroCard />}
+        element={<HeroPage />}
       />
       <Route
         path='/createHero'
