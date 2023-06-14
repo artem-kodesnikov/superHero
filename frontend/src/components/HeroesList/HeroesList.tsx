@@ -1,9 +1,9 @@
-import { CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { deleteHero, getHeroes } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { HeroCard } from '../HeroCard/HeroCard';
-import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
+import { Loader } from '../Loader/Loader';
 
 export const HeroesList = () => {
   const [heroes, setHeroes] = useState<Hero[]>([]);
@@ -28,6 +28,7 @@ export const HeroesList = () => {
     setIsLoading(true);
     try {
       await deleteHero(id);
+      toast.success('Hero deleted!');
       setHeroes(prevHeroes => prevHeroes.filter(hero => hero._id !== id));
     } catch (error) {
       console.error('Error deleting hero:', error);
@@ -38,9 +39,7 @@ export const HeroesList = () => {
 
   return (
     <div>
-      <StyledBackDrop open={isLoading}>
-        <CircularProgress color="inherit" />
-      </StyledBackDrop>
+      <Loader isLoading={isLoading} />
       {heroes.map((hero) =>
         <HeroCard handleDelete={handleDelete} key={hero._id} {...hero} />
       )}

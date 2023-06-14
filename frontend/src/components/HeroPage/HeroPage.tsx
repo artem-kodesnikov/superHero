@@ -1,14 +1,16 @@
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { deleteHero, getHeroById } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { HeroPageRow } from '../HeroPageRow/HeroPageRow';
 import { ImageModal } from '../ImageModal/ImageModal';
-import { previewImage, previewImageBox, StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
+import { previewImageBox } from '../NewHeroPage/NewHeroPage.style';
 import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
 import { useNavigate } from 'react-router-dom';
 import { UpdatingForm } from '../HeroPageUpdatingForm/UpdatingForm';
+import { Loader } from '../Loader/Loader';
+import { toast } from 'react-toastify';
 
 export const HeroPage = () => {
   const { id } = useParams();
@@ -41,6 +43,7 @@ export const HeroPage = () => {
     try {
       if (id) {
         await deleteHero(id);
+        toast.success('Hero deleted!');
         navigate('/');
       }
     } catch (error) {
@@ -51,9 +54,7 @@ export const HeroPage = () => {
   };
   return (
     <>
-      <StyledBackDrop open={isLoading}>
-        <CircularProgress color='inherit' />
-      </StyledBackDrop>
+      <Loader isLoading={isLoading} />
       <Link to='/'>
         <StyledHeroPageBackButton variant='contained'>
           Back to home page

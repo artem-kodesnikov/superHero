@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
 import { heroValidationSchema } from '../../validation/hero.validator';
 import { convertToBase64 } from '../../utils/convertImageToBase64';
+import { toast } from 'react-toastify';
 
 export const NewHeroPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +44,7 @@ export const NewHeroPage = () => {
             createNewHero(values);
             handleClearInput();
             resetForm();
+            toast.success('Hero created!');
             setSubmitting(false);
           }}
         >

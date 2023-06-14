@@ -1,15 +1,17 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Formik } from 'formik';
 import { TextField } from 'formik-mui';
 import { ChangeEvent, FC, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { updateHero } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { convertToBase64 } from '../../utils/convertImageToBase64';
 import { heroValidationSchema } from '../../validation/hero.validator';
 import { StyledImagesBox } from '../HeroPage/HeroPage.style';
+import { Loader } from '../Loader/Loader';
 import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
-import { previewImage, previewImageBox, StyledBackDrop, StyledButtonsBox, StyledDescriptionField, StyledLabel } from '../NewHeroPage/NewHeroPage.style';
+import { previewImage, previewImageBox, StyledButtonsBox, StyledDescriptionField, StyledLabel } from '../NewHeroPage/NewHeroPage.style';
 import { StyledUpdatingForm } from './UpdatingForm.style';
 
 type Props = {
@@ -42,6 +44,7 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating 
       onSubmit={async (values: Hero, { setSubmitting }) => {
         await updateHero(values);
         handleClearInput();
+        toast.success('Hero updated!');
         setSubmitting(false);
         setIsUpdating(false);
       }}
@@ -73,9 +76,7 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating 
 
         return (
           <StyledUpdatingForm>
-            <StyledBackDrop open={isSubmitting}>
-              <CircularProgress color="inherit" />
-            </StyledBackDrop>
+            <Loader isLoading={isSubmitting} />
             <NewHeroFormInput name={'nickname'} content={'Nickname'} />
             <NewHeroFormInput name={'real_name'} content={'Real name'} />
             <NewHeroFormInput name={'superpowers'} content={'Superpowers'} />

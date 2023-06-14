@@ -1,6 +1,6 @@
-import { TextField } from 'formik-mui'
-import React, { FC } from 'react'
-import { StyledField, StyledLabel } from '../NewHeroPage/NewHeroPage.style'
+import { TextField } from 'formik-mui';
+import React, { FC } from 'react';
+import { StyledField, StyledLabel } from '../NewHeroPage/NewHeroPage.style';
 
 type Props = {
   name: string,
@@ -19,5 +19,5 @@ export const NewHeroFormInput: FC<Props> = ({ name, content }) => {
         placeholder={`Enter your ${content}`}
       />
     </>
-  )
-}
+  );
+};

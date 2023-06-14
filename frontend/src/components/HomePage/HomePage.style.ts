@@ -3,4 +3,4 @@ export const HomePageContainer = {
   flexDirection: 'column', 
   alignItems: 'center', 
   pt: 5
-}
+};

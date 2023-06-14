@@ -1,5 +1,5 @@
-import { Divider, Typography } from '@mui/material'
-import React, { FC } from 'react'
+import { Divider, Typography } from '@mui/material';
+import React, { FC } from 'react';
 
 type Props = {
   title: string,
@@ -18,5 +18,5 @@ export const HeroPageRow: FC<Props> = ({ title, content }) => {
       </Typography>
       <Divider />
     </>
-  )
-}
+  );
+};
