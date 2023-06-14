@@ -7,6 +7,7 @@ import { Formik } from 'formik';
 import { createNewHero } from '../../api/requests';
 import { Link } from 'react-router-dom';
 import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
+import { heroValidationSchema } from '../../validation/hero.validator';
 
 export const NewHeroPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +43,7 @@ export const NewHeroPage = () => {
             catch_phrase: '',
             images: []
           }}
+          validationSchema={heroValidationSchema}
           onSubmit={async (values: Hero, { setSubmitting, resetForm }) => {
             console.log(values)
             createNewHero(values);
@@ -104,7 +106,8 @@ export const NewHeroPage = () => {
                     multiple
                     accept="image/*"
                     onChange={(e) => handleUploadImage(e)}
-                    hidden />
+                    // hidden
+                  />
                 </Button>
                 <Box sx={previewImagesBox}>
                   {values.images && values.images.map((image, index) => <Box key={index} sx={previewImageBox}>

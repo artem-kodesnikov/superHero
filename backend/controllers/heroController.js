@@ -7,7 +7,19 @@ class heroController {
       return res.status(200).send(posts);
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: 'Posts error' })
+      res.status(400).json({ message: 'Hero error' })
+    }
+  }
+
+  async getHeroById(req, res) {
+    try {
+      const heroId = req.hero._id
+      const hero = await Hero.findById(heroId);
+
+      return res.status(200).send(hero);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: 'Hero error' })
     }
   }
 
@@ -25,8 +37,8 @@ class heroController {
 
   async deleteHero(req, res) {
     try {
-      const { _id } = req.body;
-      const hero = await Hero.findByIdAndDelete(_id);
+      const heroId = req.hero._id
+      const hero = await Hero.findByIdAndDelete(heroId);
       return res.status(200).send(hero);
     } catch (e) {
       console.log(e)
@@ -36,14 +48,11 @@ class heroController {
 
   async updateHero(req, res) {
     try {
-      const hero = await Hero.findByIdAndUpdate(req.params.id, req.body, {
+      const heroId = req.hero._id
+      const hero = await Hero.findByIdAndUpdate(heroId, req.body, {
         new: true,
         runValidators: true
       });
-
-      if (!hero) {
-        return res.status(404).send('Hero is not found');
-      }
 
       return res.status(200).send(hero);
     } catch (e) {

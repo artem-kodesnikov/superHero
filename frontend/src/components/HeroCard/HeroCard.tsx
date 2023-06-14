@@ -12,7 +12,7 @@ interface Props extends Hero {
   _id: string,
 }
 
-export const HeroCard: React.FC<Props> = ({ _id, nickname, real_name, origin_description, superpowers, catch_phrase, images }) => {
+export const HeroCard: React.FC<Props> = ({ _id, nickname, images }) => {
   console.log(_id)
   return (
     <Card sx={{ minWidth: 345, mb: 5 }}>
