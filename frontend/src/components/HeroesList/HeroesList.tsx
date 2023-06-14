@@ -37,7 +37,6 @@ export const HeroesList = () => {
   };
 
   return (
-
     <div>
       <StyledBackDrop open={isLoading}>
         <CircularProgress color="inherit" />

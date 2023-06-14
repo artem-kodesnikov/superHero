@@ -35,4 +35,4 @@ export const HeroCard: React.FC<Props> = ({ _id, nickname, images, handleDelete 
       </CardActions>
     </Card>
   );
-}
+};

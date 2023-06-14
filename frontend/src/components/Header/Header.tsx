@@ -21,4 +21,4 @@ export const Header = () => {
       </AppBar>
     </Box>
   );
-}
+};

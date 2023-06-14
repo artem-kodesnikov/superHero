@@ -1,14 +1,15 @@
-import { Box, Button } from "@mui/material";
-import { Formik } from "formik";
-import { TextField } from "formik-mui";
-import { ChangeEvent, FC, useRef } from "react";
-import { Hero } from "../../types/hero.type";
-import { convertToBase64 } from "../../utils/convertImageToBase64";
-import { heroValidationSchema } from "../../validation/hero.validator";
-import { StyledImagesBox } from "../HeroPage/HeroPage.style";
-import { NewHeroFormInput } from "../NewHeroFormInput/NewHeroFormInput";
-import { previewImage, previewImageBox, StyledButtonsBox, StyledDescriptionField, StyledLabel } from "../NewHeroPage/NewHeroPage.style";
-import { StyledUpdatingForm } from "./UpdatingForm.style";
+/* eslint-disable react/react-in-jsx-scope */
+import { Box, Button, CircularProgress } from '@mui/material';
+import { Formik } from 'formik';
+import { TextField } from 'formik-mui';
+import { ChangeEvent, FC, useRef } from 'react';
+import { Hero } from '../../types/hero.type';
+import { convertToBase64 } from '../../utils/convertImageToBase64';
+import { heroValidationSchema } from '../../validation/hero.validator';
+import { StyledImagesBox } from '../HeroPage/HeroPage.style';
+import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
+import { previewImage, previewImageBox, StyledBackDrop, StyledButtonsBox, StyledDescriptionField, StyledLabel } from '../NewHeroPage/NewHeroPage.style';
+import { StyledUpdatingForm } from './UpdatingForm.style';
 
 type Props = {
   hero?: Hero,
@@ -52,11 +53,11 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
                 const updatedImages = [...values.images];
                 const newImages = base64Images.map((base64) => ({ url: base64 as string }));
                 updatedImages.push(...newImages);
-                setFieldValue("images", updatedImages);
+                setFieldValue('images', updatedImages);
               })
 
               .catch((error) => {
-                console.error("Error converting files to Base64:", error);
+                console.error('Error converting files to Base64:', error);
               });
           }
         };
@@ -64,11 +65,14 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
         const handleRemoveImage = (index: number) => {
           const updatedImages = [...values.images];
           updatedImages.splice(index, 1);
-          setFieldValue("images", updatedImages);
+          setFieldValue('images', updatedImages);
         };
 
         return (
           <StyledUpdatingForm>
+            <StyledBackDrop open={isSubmitting}>
+              <CircularProgress color="inherit" />
+            </StyledBackDrop>
             <NewHeroFormInput name={'nickname'} content={'Nickname'} />
             <NewHeroFormInput name={'real_name'} content={'Real name'} />
             <NewHeroFormInput name={'superpowers'} content={'Superpowers'} />
@@ -121,8 +125,8 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
               </Button>
             </StyledButtonsBox>
           </StyledUpdatingForm>
-        )
+        );
       }}
     </Formik>
-  )
-}
+  );
+};

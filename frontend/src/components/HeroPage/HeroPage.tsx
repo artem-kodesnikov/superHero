@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { deleteHero, getHeroById } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
@@ -7,7 +7,7 @@ import { HeroPageRow } from '../HeroPageRow/HeroPageRow';
 import { ImageModal } from '../ImageModal/ImageModal';
 import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
 import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { UpdatingForm } from '../HeroPageUpdatingForm/UpdatingForm';
 
 export const HeroPage = () => {
@@ -20,7 +20,7 @@ export const HeroPage = () => {
 
   useEffect(() => {
     const fetchHero = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         if (!id) {
           return;
@@ -28,39 +28,38 @@ export const HeroPage = () => {
         const data = await getHeroById(id);
         setHero(data.data);
       } catch (error) {
-        console.error("Error fetching heroes:", error);
+        console.error('Error fetching heroes:', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchHero()
-  }, [])
+    };
+    fetchHero();
+  }, []);
 
   const handleDelete = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       if (id) {
         await deleteHero(id);
         navigate('/');
       }
     } catch (error) {
-      console.error("Error deleting hero:", error);
+      console.error('Error deleting hero:', error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
-
   return (
     <>
       <StyledBackDrop open={isLoading}>
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </StyledBackDrop>
       <Link to='/'>
         <StyledHeroPageBackButton variant='contained'>
           Back to home page
         </StyledHeroPageBackButton>
       </Link>
-      <StyledHeroPageContainer maxWidth="lg">
+      <StyledHeroPageContainer maxWidth='lg'>
         <StyledHeroPageBox>
           <StyledHeroPagePaper elevation={3}>
             <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
@@ -96,5 +95,5 @@ export const HeroPage = () => {
         <ImageModal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
       </StyledHeroPageContainer>
     </>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
 import { array, object, string } from 'yup';
 
-export let heroValidationSchema = object({
+export const heroValidationSchema = object({
   nickname: string().required().min(3, 'must be at least 3 characters long').max(30, 'must be no longer than 30'),
   real_name: string().required(),
   origin_description: string().required(),

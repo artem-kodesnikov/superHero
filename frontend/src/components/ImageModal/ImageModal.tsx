@@ -1,6 +1,6 @@
-import { Modal } from '@mui/material'
-import { Box } from '@mui/system'
-import React, { FC } from 'react'
+import { Modal } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { FC } from 'react';
 
 type Props = {
   selectedImage: string,
@@ -18,5 +18,5 @@ export const ImageModal: FC<Props> = ({ selectedImage, setSelectedImage }) => {
         />
       </Box>
     </Modal>
-  )
-}
+  );
+};

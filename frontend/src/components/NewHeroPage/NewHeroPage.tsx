@@ -22,7 +22,7 @@ export const NewHeroPage = () => {
   return (
     <>
       <Link to='/'>
-        <Button sx={{ position: 'absolute', top: "10px", left: '20px' }} variant='contained'>
+        <Button sx={{ position: 'absolute', top: '10px', left: '20px' }} variant='contained'>
           Back to home page
         </Button>
       </Link>
@@ -39,7 +39,7 @@ export const NewHeroPage = () => {
           }}
           validationSchema={heroValidationSchema}
           onSubmit={async (values: Hero, { setSubmitting, resetForm }) => {
-            console.log(values)
+            console.log(values);
             createNewHero(values);
             handleClearInput();
             resetForm();
@@ -58,11 +58,11 @@ export const NewHeroPage = () => {
                     const updatedImages = [...values.images];
                     const newImages = base64Images.map((base64) => ({ url: base64 as string }));
                     updatedImages.push(...newImages);
-                    setFieldValue("images", updatedImages);
+                    setFieldValue('images', updatedImages);
                   })
 
                   .catch((error) => {
-                    console.error("Error converting files to Base64:", error);
+                    console.error('Error converting files to Base64:', error);
                   });
               }
             };
@@ -70,7 +70,7 @@ export const NewHeroPage = () => {
             const handleRemoveImage = (index: number) => {
               const updatedImages = [...values.images];
               updatedImages.splice(index, 1);
-              setFieldValue("images", updatedImages);
+              setFieldValue('images', updatedImages);
             };
             return (
               <StyledForm>
