@@ -8,16 +8,10 @@ import { createNewHero } from '../../api/requests';
 import { Link } from 'react-router-dom';
 import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
 import { heroValidationSchema } from '../../validation/hero.validator';
+import { convertToBase64 } from '../../utils/convertImageToBase64';
 
 export const NewHeroPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const convertToBase64 = (file: File) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 
   const handleClearInput = () => {
     if (fileInputRef.current) {

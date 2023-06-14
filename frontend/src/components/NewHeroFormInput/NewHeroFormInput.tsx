@@ -4,7 +4,7 @@ import { StyledField, StyledLabel } from '../NewHeroPage/NewHeroPage.style'
 
 type Props = {
   name: string,
-  content: string
+  content?: string
 }
 
 export const NewHeroFormInput: FC<Props> = ({ name, content }) => {

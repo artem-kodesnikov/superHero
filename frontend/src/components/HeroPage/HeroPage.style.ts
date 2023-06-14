@@ -4,9 +4,11 @@ import { styled } from '@mui/system';
 
 export const StyledImagesBox = styled(Box)(() => ({
   display: 'flex',
+  // flexDirection: 'column',
   margin: '10px',
   flexWrap: 'wrap',
   gap: '20px',
+  maxWidth: 'fit-content',
   '& img': {
     height: '100px',
     border: '2px solid',

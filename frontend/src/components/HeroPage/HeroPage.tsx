@@ -8,14 +8,15 @@ import { ImageModal } from '../ImageModal/ImageModal';
 import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
 import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
 import { useNavigate } from "react-router-dom";
+import { UpdatingForm } from '../HeroPageUpdatingForm/UpdatingForm';
 
 export const HeroPage = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [hero, setHero] = useState<Hero>();
   const [selectedImage, setSelectedImage] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const fetchHero = async () => {
@@ -64,26 +65,32 @@ export const HeroPage = () => {
           <StyledHeroPagePaper elevation={3}>
             <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <Button onClick={handleDelete} variant='contained' color='error'>Delete hero</Button>
-              <Button sx={{ mr: 2 }} variant='contained' color='primary'>Update info</Button>
+              <Button onClick={() => setIsUpdating(!isUpdating)} sx={{ mr: 2 }} variant='contained' color='primary'>{isUpdating ? 'Cancel update' : 'Update info'}</Button>
             </Box>
             <StyledHeroPageTitle>
               Hero Page
             </StyledHeroPageTitle>
-            <HeroPageRow title={'Nickname'} content={hero?.nickname} />
-            <HeroPageRow title={'Real name'} content={hero?.real_name} />
-            <HeroPageRow title={'Superpowers'} content={hero?.superpowers} />
-            <HeroPageRow title={'Catch phrase'} content={hero?.catch_phrase} />
-            <HeroPageRow title={'Origin description'} content={hero?.origin_description} />
-            <StyledImagesBox>
-              {hero?.images.map((image) => (
-                <img
-                  onClick={() => setSelectedImage(image.url)}
-                  src={image.url}
-                  alt='hero images'
-                  key={image.url}
-                />
-              ))}
-            </StyledImagesBox>
+            {isUpdating ? (
+              <UpdatingForm hero={hero} setSelectedImage={setSelectedImage} />
+            ) : (
+              <>
+                <HeroPageRow title={'Nickname'} content={hero?.nickname} />
+                <HeroPageRow title={'Real name'} content={hero?.real_name} />
+                <HeroPageRow title={'Superpowers'} content={hero?.superpowers} />
+                <HeroPageRow title={'Catch phrase'} content={hero?.catch_phrase} />
+                <HeroPageRow title={'Origin description'} content={hero?.origin_description} />
+                <StyledImagesBox>
+                  {hero?.images.map((image) => (
+                    <img
+                      onClick={() => setSelectedImage(image.url)}
+                      src={image.url}
+                      alt='hero images'
+                      key={image.url}
+                    />
+                  ))}
+                </StyledImagesBox>
+              </>
+            )}
           </StyledHeroPagePaper>
         </StyledHeroPageBox>
         <ImageModal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
