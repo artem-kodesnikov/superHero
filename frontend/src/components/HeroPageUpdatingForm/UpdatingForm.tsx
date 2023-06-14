@@ -3,6 +3,7 @@ import { Box, Button, CircularProgress } from '@mui/material';
 import { Formik } from 'formik';
 import { TextField } from 'formik-mui';
 import { ChangeEvent, FC, useRef } from 'react';
+import { updateHero } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { convertToBase64 } from '../../utils/convertImageToBase64';
 import { heroValidationSchema } from '../../validation/hero.validator';
@@ -13,10 +14,11 @@ import { StyledUpdatingForm } from './UpdatingForm.style';
 
 type Props = {
   hero?: Hero,
-  setSelectedImage: (val: string) => void
+  setSelectedImage: (val: string) => void,
+  setIsUpdating: (val: boolean) => void
 }
 
-export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
+export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClearInput = () => {
@@ -28,19 +30,20 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
   return (
     <Formik
       initialValues={{
-        _id: '',
+        _id: hero?._id || '',
         nickname: hero?.nickname || '',
         real_name: hero?.real_name || '',
         origin_description: hero?.origin_description || '',
         superpowers: hero?.superpowers || '',
         catch_phrase: hero?.catch_phrase || '',
-        images: hero?.images.map((image) => ({ url: image.url })) || [],
+        images: hero?.images.map((image) => ({ _id: image._id, url: image.url })) || [],
       }}
       validationSchema={heroValidationSchema}
-      onSubmit={async (values: Hero, { setSubmitting, resetForm }) => {
+      onSubmit={async (values: Hero, { setSubmitting }) => {
+        await updateHero(values);
         handleClearInput();
-        resetForm();
         setSubmitting(false);
+        setIsUpdating(false);
       }}
     >
       {({ submitForm, isSubmitting, setFieldValue, values }) => {
@@ -109,7 +112,7 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage }) => {
                     onClick={() => setSelectedImage(image.url)}
                     src={image.url}
                     alt='hero images'
-                    key={image.url}
+                    key={image._id}
                     style={previewImage}
                   />
                   <Button sx={{ marginBottom: '20px' }} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>

@@ -1,8 +1,8 @@
 import { CircularProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { deleteHero, getHeroes } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
-import { HeroCard } from '../HeroCard/HeroCard'
+import { HeroCard } from '../HeroCard/HeroCard';
 import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
 
 export const HeroesList = () => {
@@ -11,28 +11,28 @@ export const HeroesList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const data = await getHeroes()
+        const data = await getHeroes();
         setHeroes(data.data);
       } catch (error) {
-        console.error("Error fetching heroes:", error);
+        console.error('Error fetching heroes:', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   const handleDelete = async (id: string) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       await deleteHero(id);
       setHeroes(prevHeroes => prevHeroes.filter(hero => hero._id !== id));
     } catch (error) {
-      console.error("Error deleting hero:", error);
+      console.error('Error deleting hero:', error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -45,5 +45,5 @@ export const HeroesList = () => {
         <HeroCard handleDelete={handleDelete} key={hero._id} {...hero} />
       )}
     </div>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
-import axios from "axios";
-import { Hero } from "../types/hero.type";
+import axios from 'axios';
+import { Hero } from '../types/hero.type';
 
-const BASE_URL = 'http://localhost:3000/heroes'
+const BASE_URL = 'http://localhost:3000/heroes';
 
 export const createNewHero = async (data: Hero) => {
   const { nickname, real_name, origin_description, superpowers, catch_phrase, images } = data;
@@ -35,8 +35,18 @@ export const getHeroById = async (id: string) => {
 export const deleteHero = async (_id: string) => {
   const request = {
     method: 'delete',
-    url: BASE_URL.concat(`/deleteHero`),
+    url: BASE_URL.concat('/deleteHero'),
     data: { _id }
+  };
+  const response = await axios(request);
+  return response;
+};
+
+export const updateHero = async (data: Hero) => {
+  const request = {
+    method: 'put',
+    url: BASE_URL.concat(`/updateHero/${data._id}`),
+    data
   };
   const response = await axios(request);
   return response;

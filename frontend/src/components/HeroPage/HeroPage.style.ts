@@ -4,20 +4,10 @@ import { styled } from '@mui/system';
 
 export const StyledImagesBox = styled(Box)(() => ({
   display: 'flex',
-  // flexDirection: 'column',
   margin: '10px',
   flexWrap: 'wrap',
   gap: '20px',
-  maxWidth: 'fit-content',
-  '& img': {
-    height: '100px',
-    border: '2px solid',
-    padding: '5px',
-    transition: 'transform 0.3s',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
+  maxWidth: 'fit-content'
 }));
 
 export const StyledHeroPageBox = styled(Box)(() => ({
@@ -27,7 +17,7 @@ export const StyledHeroPageBox = styled(Box)(() => ({
   '& > :not(style)': {
     m: 1,
   },
-  height: "80vh",
+  height: '80vh',
   width: '100%',
 }));
 
@@ -52,6 +42,6 @@ export const StyledHeroPagePaper = styled(Paper)(() => ({
 
 export const StyledHeroPageBackButton = styled(Button)(() => ({
   position: 'absolute',
-  top: "10px",
+  top: '10px',
   left: '20px'
 }));

@@ -64,15 +64,26 @@ export const previewImagesBox = {
   display: 'flex', 
   flexWrap: 'wrap', 
   justifyContent: 'center'
-}
+};
 export const previewImageBox = {
-  display: "flex", 
-  alignItems: "center", 
-  flexDirection: "column", 
-  marginRight: "20px"
-}
+  display: 'flex', 
+  alignItems: 'center', 
+  flexDirection: 'column', 
+  marginRight: '20px',
+  '& img': {
+    height: '100px',
+    border: '2px solid',
+    padding: '5px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+};
 
 export const previewImage = {
   height: '100px', 
   marginBottom: '20px',
-}
+  '&:hover': {
+    cursor: 'pointer',
+  },
+};

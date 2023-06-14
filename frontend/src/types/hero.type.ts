@@ -5,5 +5,5 @@ export interface Hero {
   origin_description: string,
   superpowers: string,
   catch_phrase: string,
-  images: { url: string }[]
+  images: { _id?: string, url: string }[]
 }

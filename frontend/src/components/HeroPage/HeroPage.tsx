@@ -5,7 +5,7 @@ import { deleteHero, getHeroById } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { HeroPageRow } from '../HeroPageRow/HeroPageRow';
 import { ImageModal } from '../ImageModal/ImageModal';
-import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
+import { previewImage, previewImageBox, StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
 import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
 import { useNavigate } from 'react-router-dom';
 import { UpdatingForm } from '../HeroPageUpdatingForm/UpdatingForm';
@@ -34,9 +34,9 @@ export const HeroPage = () => {
       }
     };
     fetchHero();
-  }, []);
+  }, [isUpdating]);
 
-  const handleDelete = async () => {
+  const handleDeleteHero = async () => {
     setIsLoading(true);
     try {
       if (id) {
@@ -63,14 +63,14 @@ export const HeroPage = () => {
         <StyledHeroPageBox>
           <StyledHeroPagePaper elevation={3}>
             <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <Button onClick={handleDelete} variant='contained' color='error'>Delete hero</Button>
+              <Button onClick={handleDeleteHero} variant='contained' color='error'>Delete hero</Button>
               <Button onClick={() => setIsUpdating(!isUpdating)} sx={{ mr: 2 }} variant='contained' color='primary'>{isUpdating ? 'Cancel update' : 'Update info'}</Button>
             </Box>
             <StyledHeroPageTitle>
               Hero Page
             </StyledHeroPageTitle>
             {isUpdating ? (
-              <UpdatingForm hero={hero} setSelectedImage={setSelectedImage} />
+              <UpdatingForm setIsUpdating={setIsUpdating} hero={hero} setSelectedImage={setSelectedImage} />
             ) : (
               <>
                 <HeroPageRow title={'Nickname'} content={hero?.nickname} />
@@ -80,12 +80,13 @@ export const HeroPage = () => {
                 <HeroPageRow title={'Origin description'} content={hero?.origin_description} />
                 <StyledImagesBox>
                   {hero?.images.map((image) => (
-                    <img
-                      onClick={() => setSelectedImage(image.url)}
-                      src={image.url}
-                      alt='hero images'
-                      key={image.url}
-                    />
+                    <Box key={image._id} sx={previewImageBox}>
+                      <img
+                        onClick={() => setSelectedImage(image.url)}
+                        src={image.url}
+                        alt='hero images'
+                      />
+                    </Box>
                   ))}
                 </StyledImagesBox>
               </>
