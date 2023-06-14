@@ -59,11 +59,14 @@ export const NewHeroPage = () => {
               const files = event.target.files;
               if (files) {
                 const fileArray = Array.from(files);
-                Promise.all(fileArray.map((file) => convertToBase64(file)))
+                Promise.all(fileArray.map((file) => convertToBase64(file) as Promise<string>))
                   .then((base64Images) => {
-                    const updatedImages = base64Images.map((base64) => ({ url: base64 }));
+                    const updatedImages = [...values.images];
+                    const newImages = base64Images.map((base64) => ({ url: base64 as string }));
+                    updatedImages.push(...newImages);
                     setFieldValue("images", updatedImages);
                   })
+
                   .catch((error) => {
                     console.error("Error converting files to Base64:", error);
                   });
@@ -106,7 +109,7 @@ export const NewHeroPage = () => {
                     multiple
                     accept="image/*"
                     onChange={(e) => handleUploadImage(e)}
-                    // hidden
+                    hidden
                   />
                 </Button>
                 <Box sx={previewImagesBox}>
