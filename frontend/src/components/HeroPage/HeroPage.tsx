@@ -1,79 +1,93 @@
-import { Box, Container, Divider, Paper, Typography } from '@mui/material';
-import React from 'react'
-// import { useParams } from 'react-router-dom';
+import { Box, Button, CircularProgress } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
+import { deleteHero, getHeroById } from '../../api/requests';
+import { Hero } from '../../types/hero.type';
+import { HeroPageRow } from '../HeroPageRow/HeroPageRow';
+import { ImageModal } from '../ImageModal/ImageModal';
+import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
+import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
+import { useNavigate } from "react-router-dom";
 
 export const HeroPage = () => {
-  // const { id } = useParams();
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [hero, setHero] = useState<Hero>();
+  const [selectedImage, setSelectedImage] = useState('');
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const fetchHero = async () => {
+      setIsLoading(true)
+      try {
+        if (!id) {
+          return;
+        }
+        const data = await getHeroById(id);
+        setHero(data.data);
+      } catch (error) {
+        console.error("Error fetching heroes:", error);
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchHero()
+  }, [])
+
+  const handleDelete = async () => {
+    setIsLoading(true)
+    try {
+      if (id) {
+        await deleteHero(id);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error("Error deleting hero:", error);
+    } finally {
+      setIsLoading(false)
+    }
+  };
 
   return (
     <>
-      <Container sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-        maxWidth="lg"
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            '& > :not(style)': {
-              m: 1,
-            },
-            height: "80vh",
-            width: '100%',
-          }}
-        >
-          <Paper sx={{ width: '100%', p: 4 }} elevation={3}>
-            <Typography sx={{
-              textAlign: 'center',
-              fontSize: 32,
-              fontWeight: 700
-            }}>
-              nickname:
-              <br />
-              <Typography sx={{ fontSize: 24, color: 'gray' }}>
-                hero nickname
-              </Typography>
-            </Typography>
-            <Divider />
-            <Typography sx={{ fontSize: 24 }}>
-              real_name:
-              <br />
-              <Typography sx={{ fontSize: 18, color: 'gray', wordWrap: 'break-word' }}>
-                hero real name
-              </Typography>
-            </Typography>
-            <Divider />
-            <Typography sx={{ fontSize: 24 }}>
-              superpowers:
-              <br />
-              <Typography sx={{ fontSize: 18, color: 'gray', wordWrap: 'break-word' }}>
-                hero superpowers
-              </Typography>
-            </Typography>
-            <Divider />
-            <Typography sx={{ fontSize: 24 }}>
-              catch_phrase
-              <br />
-              <Typography sx={{ fontSize: 18, color: 'gray', wordWrap: 'break-word' }}>
-                hero catch_phrase
-              </Typography>
-            </Typography>
-            <Typography sx={{ fontSize: 24 }}>
-              origin_description
-              <br />
-              <Typography sx={{ fontSize: 18, color: 'gray', wordWrap: 'break-word' }}>
-                hero origin_description
-              </Typography>
-            </Typography>
-            <Divider />
-          </Paper>
-        </Box>
-      </Container>
+      <StyledBackDrop open={isLoading}>
+        <CircularProgress color="inherit" />
+      </StyledBackDrop>
+      <Link to='/'>
+        <StyledHeroPageBackButton variant='contained'>
+          Back to home page
+        </StyledHeroPageBackButton>
+      </Link>
+      <StyledHeroPageContainer maxWidth="lg">
+        <StyledHeroPageBox>
+          <StyledHeroPagePaper elevation={3}>
+            <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <Button onClick={handleDelete} variant='contained' color='error'>Delete hero</Button>
+              <Button sx={{ mr: 2 }} variant='contained' color='primary'>Update info</Button>
+            </Box>
+            <StyledHeroPageTitle>
+              Hero Page
+            </StyledHeroPageTitle>
+            <HeroPageRow title={'Nickname'} content={hero?.nickname} />
+            <HeroPageRow title={'Real name'} content={hero?.real_name} />
+            <HeroPageRow title={'Superpowers'} content={hero?.superpowers} />
+            <HeroPageRow title={'Catch phrase'} content={hero?.catch_phrase} />
+            <HeroPageRow title={'Origin description'} content={hero?.origin_description} />
+            <StyledImagesBox>
+              {hero?.images.map((image) => (
+                <img
+                  onClick={() => setSelectedImage(image.url)}
+                  src={image.url}
+                  alt='hero images'
+                  key={image.url}
+                />
+              ))}
+            </StyledImagesBox>
+          </StyledHeroPagePaper>
+        </StyledHeroPageBox>
+        <ImageModal selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+      </StyledHeroPageContainer>
     </>
   )
 }

@@ -8,10 +8,9 @@ const checkHeroExists = async (req, res, next) => {
       id = req.params.id;
     }
 
-    if (req.body.id) {
-      id = req.body.id;
+    if (req.body._id) {
+      id = req.body._id;
     }
-
     if (id) {
       const hero = await Hero.findById(id);
       if (hero) {
@@ -28,7 +27,6 @@ const checkHeroExists = async (req, res, next) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 
 export default checkHeroExists;

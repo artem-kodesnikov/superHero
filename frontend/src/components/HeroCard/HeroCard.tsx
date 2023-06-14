@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 
 interface Props extends Hero {
   _id: string,
+  handleDelete: (id: string) => void
 }
 
-export const HeroCard: React.FC<Props> = ({ _id, nickname, images }) => {
-  console.log(_id)
+export const HeroCard: React.FC<Props> = ({ _id, nickname, images, handleDelete }) => {
   return (
     <Card sx={{ minWidth: 345, mb: 5 }}>
       <CardMedia
@@ -29,8 +29,9 @@ export const HeroCard: React.FC<Props> = ({ _id, nickname, images }) => {
       </CardContent>
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link to={`hero/${_id}`}>
-          <Button variant='contained' color='primary' size="medium">Learn More</Button>
+          <Button sx={{ mr: 2 }} variant='contained' color='primary' size="medium">Open details</Button>
         </Link>
+        <Button onClick={() => handleDelete(_id)} variant='contained' color='error' size="medium">Delete hero</Button>
       </CardActions>
     </Card>
   );

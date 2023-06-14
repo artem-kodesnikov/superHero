@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { getHeroes } from '../../api/requests';
+import { deleteHero, getHeroes } from '../../api/requests';
 import { Hero } from '../../types/hero.type';
 import { HeroCard } from '../HeroCard/HeroCard'
 import { StyledBackDrop } from '../NewHeroPage/NewHeroPage.style';
@@ -24,17 +24,26 @@ export const HeroesList = () => {
     fetchData()
   }, [])
 
-  console.log(heroes);
+  const handleDelete = async (id: string) => {
+    setIsLoading(true)
+    try {
+      await deleteHero(id);
+      setHeroes(prevHeroes => prevHeroes.filter(hero => hero._id !== id));
+    } catch (error) {
+      console.error("Error deleting hero:", error);
+    } finally {
+      setIsLoading(false)
+    }
+  };
+
   return (
 
     <div>
-      {isLoading && (
-        <StyledBackDrop open={true}>
-          <CircularProgress color="inherit" />
-        </StyledBackDrop>
-      )}
+      <StyledBackDrop open={isLoading}>
+        <CircularProgress color="inherit" />
+      </StyledBackDrop>
       {heroes.map((hero) =>
-        <HeroCard key={hero._id} {...hero} />
+        <HeroCard handleDelete={handleDelete} key={hero._id} {...hero} />
       )}
     </div>
   )

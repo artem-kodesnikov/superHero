@@ -113,10 +113,11 @@ export const NewHeroPage = () => {
                   />
                 </Button>
                 <Box sx={previewImagesBox}>
-                  {values.images && values.images.map((image, index) => <Box key={index} sx={previewImageBox}>
-                    <img style={previewImage} src={image.url} alt='preview' />
-                    <Button sx={{ marginBottom: '20px' }} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>Remove</Button>
-                  </Box>
+                  {values.images && values.images.map((image, index) =>
+                    <Box key={index} sx={previewImageBox}>
+                      <img style={previewImage} src={image.url} alt='preview' />
+                      <Button sx={{ marginBottom: '20px' }} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>Remove</Button>
+                    </Box>
                   )}
                 </Box>
                 <StyledButtonsBox>
