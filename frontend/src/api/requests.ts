@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Hero } from '../types/hero.type';
 
-const BASE_URL = 'http://localhost:3000/heroes';
+const BASE_URL = 'http://localhost:5000/heroes';
 
 export const createNewHero = async (data: Hero) => {
   const { nickname, real_name, origin_description, superpowers, catch_phrase, images } = data;
@@ -14,10 +14,10 @@ export const createNewHero = async (data: Hero) => {
   return response;
 };
 
-export const getHeroes = async () => {
+export const getHeroes = async (page: number) => {
   const request = {
     method: 'get',
-    url: BASE_URL.concat('/'),
+    url: `${BASE_URL}/?page=${page}`
   };
   const response = await axios(request);
   return response;

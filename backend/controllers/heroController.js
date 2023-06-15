@@ -2,9 +2,13 @@ import Hero from '../models/SuperHeroes.js';
 
 class heroController {
   async getHeroes(req, res) {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    const skip = (page - 1) * limit;
     try {
-      const posts = await Hero.find();
-      return res.status(200).send(posts);
+      const posts = await Hero.find().skip(skip).limit(limit);
+      const totalHeroes = await Hero.countDocuments();
+      return res.status(200).send({ posts, totalHeroes });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: 'Hero error' })

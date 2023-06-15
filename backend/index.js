@@ -4,7 +4,7 @@ import cors from 'cors';
 import heroRouter from './routers/heroRoute.js';
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(cors());

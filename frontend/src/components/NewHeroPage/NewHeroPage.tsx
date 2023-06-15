@@ -50,7 +50,6 @@ export const NewHeroPage = () => {
           {({ submitForm, isSubmitting, setFieldValue, values }) => {
 
             const handleUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
-              console.log(values);
               const files = event.target.files;
               if (files) {
                 const fileArray = Array.from(files);
