@@ -17,6 +17,7 @@ export const HeroPagination: FC<Props> = ({ setCurrentPage, currentPage, totalPa
   return (
     <Stack sx={{ mb: 5 }} spacing={2}>
       <Pagination
+        sx={{ display: 'flex', justifyContent: 'center'}}
         color='primary'
         onChange={handlePageChange}
         page={currentPage}

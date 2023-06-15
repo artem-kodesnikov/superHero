@@ -10,4 +10,3 @@ router.delete('/deleteHero', checkHeroExists, controller.deleteHero);
 router.put('/updateHero/:id', checkHeroExists, controller.updateHero);
 
 export default router;
-  

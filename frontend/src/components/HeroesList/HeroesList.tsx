@@ -12,14 +12,18 @@ export const HeroesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
+  const fetchHeroes = async () => {
+    const data = await getHeroes(currentPage);
+    const totalPages = Math.ceil(data.data.totalHeroes / 5);
+    setTotalPages(totalPages);
+    setHeroes(data.data.posts);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await getHeroes(currentPage);
-        const totalPages = Math.ceil(data.data.totalHeroes / 5);
-        setTotalPages(totalPages);
-        setHeroes(data.data.posts);
+        await fetchHeroes();
       } catch (error) {
         console.error('Error fetching heroes:', error);
       } finally {
@@ -34,15 +38,13 @@ export const HeroesList = () => {
     try {
       await deleteHero(id);
       toast.success('Hero deleted!');
-      setHeroes(prevHeroes => prevHeroes.filter(hero => hero._id !== id));
+      await fetchHeroes();
     } catch (error) {
       console.error('Error deleting hero:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
-
 
   return (
     <div>

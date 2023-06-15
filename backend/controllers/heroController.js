@@ -2,11 +2,11 @@ import Hero from '../models/SuperHeroes.js';
 
 class heroController {
   async getHeroes(req, res) {
-    const page = parseInt(req.query.page) || 1;
+    const page = parseInt(req.query && req.query.page, 10) || 1;
     const limit = 5;
     const skip = (page - 1) * limit;
     try {
-      const posts = await Hero.find().skip(skip).limit(limit);
+      const posts = await Hero.find().sort({ _id: 'desc' }).skip(skip).limit(limit);
       const totalHeroes = await Hero.countDocuments();
       return res.status(200).send({ posts, totalHeroes });
     } catch (e) {
@@ -22,7 +22,7 @@ class heroController {
 
       return res.status(200).send(hero);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).json({ message: 'Hero error' })
     }
   }
