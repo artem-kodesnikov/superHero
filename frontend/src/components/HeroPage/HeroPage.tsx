@@ -6,7 +6,7 @@ import { Hero } from '../../types/hero.type';
 import { HeroPageRow } from '../HeroPageRow/HeroPageRow';
 import { ImageModal } from '../ImageModal/ImageModal';
 import { previewImageBox } from '../NewHeroPage/NewHeroPage.style';
-import { StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
+import { PaperButtonsBox, StyledHeroPageBackButton, StyledHeroPageBox, StyledHeroPageContainer, StyledHeroPagePaper, StyledHeroPageTitle, StyledImagesBox } from './HeroPage.style';
 import { useNavigate } from 'react-router-dom';
 import { UpdatingForm } from '../HeroPageUpdatingForm/UpdatingForm';
 import { Loader } from '../Loader/Loader';
@@ -63,9 +63,11 @@ export const HeroPage = () => {
       <StyledHeroPageContainer maxWidth='lg'>
         <StyledHeroPageBox>
           <StyledHeroPagePaper elevation={3}>
-            <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
+            <Box sx={PaperButtonsBox}>
               <Button onClick={handleDeleteHero} variant='contained' color='error'>Delete hero</Button>
-              <Button onClick={() => setIsUpdating(!isUpdating)} sx={{ mr: 2 }} variant='contained' color='primary'>{isUpdating ? 'Cancel update' : 'Update info'}</Button>
+              <Button onClick={() => setIsUpdating(!isUpdating)} sx={{ mr: 2 }} variant='contained' color='primary'>
+                {isUpdating ? 'Cancel update' : 'Update info'}
+              </Button>
             </Box>
             <StyledHeroPageTitle>
               Hero Page

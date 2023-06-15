@@ -87,3 +87,17 @@ export const previewImage = {
     cursor: 'pointer',
   },
 };
+
+export const NewHeroPageBackButton = {
+  position: 'absolute', 
+  top: '10px', 
+  left: '20px'
+};
+
+export const NewHeroPageSaveButton = {
+  mb: 5
+};
+
+export const NewHeroPageSaveImageButton = {
+  mb: 5
+};

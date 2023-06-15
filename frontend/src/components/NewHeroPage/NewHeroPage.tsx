@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress } from '@mui/material';
 import { TextField } from 'formik-mui';
 import React, { ChangeEvent, useRef } from 'react';
-import { previewImage, previewImageBox, previewImagesBox, StyledBackDrop, StyledButtonsBox, StyledContainer, StyledDescriptionField, StyledForm, StyledLabel } from './NewHeroPage.style';
+import { NewHeroPageBackButton, NewHeroPageSaveButton, NewHeroPageSaveImageButton, previewImage, previewImageBox, previewImagesBox, StyledBackDrop, StyledButtonsBox, StyledContainer, StyledDescriptionField, StyledForm, StyledLabel } from './NewHeroPage.style';
 import { Hero } from '../../types/hero.type';
 import { Formik } from 'formik';
 import { createNewHero } from '../../api/requests';
@@ -23,7 +23,7 @@ export const NewHeroPage = () => {
   return (
     <>
       <Link to='/'>
-        <Button sx={{ position: 'absolute', top: '10px', left: '20px' }} variant='contained'>
+        <Button sx={NewHeroPageBackButton} variant='contained'>
           Back to home page
         </Button>
       </Link>
@@ -40,7 +40,6 @@ export const NewHeroPage = () => {
           }}
           validationSchema={heroValidationSchema}
           onSubmit={async (values: Hero, { setSubmitting, resetForm }) => {
-            console.log(values);
             createNewHero(values);
             handleClearInput();
             resetForm();
@@ -91,11 +90,7 @@ export const NewHeroPage = () => {
                   multiline
                   rows={6}
                   placeholder="Enter your origin description" />
-                <Button
-                  variant="contained"
-                  component="label"
-                  sx={{ mb: 2 }}
-                >
+                <Button variant="contained" component="label" sx={{ mb: 2 }}>
                   Add some photos of the hero
                   <input
                     ref={fileInputRef}
@@ -112,12 +107,14 @@ export const NewHeroPage = () => {
                   {values.images && values.images.map((image, index) =>
                     <Box key={index} sx={previewImageBox}>
                       <img style={previewImage} src={image.url} alt='preview' />
-                      <Button sx={{ marginBottom: '20px' }} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>Remove</Button>
+                      <Button sx={NewHeroPageSaveImageButton} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>
+                        Remove
+                      </Button>
                     </Box>
                   )}
                 </Box>
                 <StyledButtonsBox>
-                  <Button sx={{ mb: 5 }} variant="contained" color="success" onClick={submitForm}>
+                  <Button sx={NewHeroPageSaveButton} variant="contained" color="success" onClick={submitForm}>
                     Save
                   </Button>
                 </StyledButtonsBox>

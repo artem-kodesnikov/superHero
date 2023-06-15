@@ -45,3 +45,8 @@ export const StyledHeroPageBackButton = styled(Button)(() => ({
   top: '10px',
   left: '20px'
 }));
+
+export const PaperButtonsBox = {
+  display: 'flex', 
+  flexDirection: 'row-reverse'
+};

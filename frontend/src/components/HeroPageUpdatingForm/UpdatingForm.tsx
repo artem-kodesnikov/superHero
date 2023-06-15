@@ -12,7 +12,7 @@ import { StyledImagesBox } from '../HeroPage/HeroPage.style';
 import { Loader } from '../Loader/Loader';
 import { NewHeroFormInput } from '../NewHeroFormInput/NewHeroFormInput';
 import { previewImage, previewImageBox, StyledButtonsBox, StyledDescriptionField, StyledLabel } from '../NewHeroPage/NewHeroPage.style';
-import { StyledUpdatingForm } from './UpdatingForm.style';
+import { StyledUpdatingForm, UpdatingFormDeleteButton, UpdatingFormSaveButton } from './UpdatingForm.style';
 
 type Props = {
   hero?: Hero,
@@ -89,11 +89,7 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating 
               multiline
               rows={6}
               placeholder="Enter your origin description" />
-            <Button
-              variant="contained"
-              component="label"
-              sx={{ mb: 2 }}
-            >
+            <Button variant="contained" component="label" sx={{ mb: 2 }}>
               Add some photos of the hero
               <input
                 ref={fileInputRef}
@@ -108,15 +104,14 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating 
             </Button>
             <StyledImagesBox>
               {values?.images.map((image, index) => (
-                <Box key={index} sx={previewImageBox}>
+                <Box key={image._id} sx={previewImageBox}>
                   <img
                     onClick={() => setSelectedImage(image.url)}
                     src={image.url}
                     alt='hero images'
-                    key={image._id}
                     style={previewImage}
                   />
-                  <Button sx={{ marginBottom: '20px' }} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>
+                  <Button sx={UpdatingFormDeleteButton} variant="outlined" color="error" onClick={() => handleRemoveImage(index)}>
                     Remove
                   </Button>
                 </Box>
@@ -124,7 +119,7 @@ export const UpdatingForm: FC<Props> = ({ hero, setSelectedImage, setIsUpdating 
               }
             </StyledImagesBox>
             <StyledButtonsBox>
-              <Button sx={{ mb: 5 }} variant="contained" color="success" onClick={submitForm}>
+              <Button sx={UpdatingFormSaveButton} variant="contained" color="success" onClick={submitForm}>
                 Save
               </Button>
             </StyledButtonsBox>

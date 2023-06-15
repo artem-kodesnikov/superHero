@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Hero } from '../../types/hero.type';
 import { Link } from 'react-router-dom';
+import { HeroCardActions, HeroCardImage, HeroCards } from './HeroCard.style';
 
 interface Props extends Hero {
   _id: string,
@@ -15,9 +16,9 @@ interface Props extends Hero {
 
 export const HeroCard: React.FC<Props> = ({ _id, nickname, images, handleDelete }) => {
   return (
-    <Card sx={{ minWidth: 345, mb: 5 }}>
+    <Card sx={HeroCards}>
       <CardMedia
-        sx={{ height: 140, backgroundSize: 'contain' }}
+        sx={HeroCardImage}
         image={images.length > 0 ? images[0].url : './image_not_found.svg'}
       />
       <CardContent>
@@ -27,7 +28,7 @@ export const HeroCard: React.FC<Props> = ({ _id, nickname, images, handleDelete 
           {nickname}
         </Typography>
       </CardContent>
-      <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CardActions sx={HeroCardActions}>
         <Link to={`hero/${_id}`}>
           <Button sx={{ mr: 2 }} variant='contained' color='primary' size="medium">Open details</Button>
         </Link>

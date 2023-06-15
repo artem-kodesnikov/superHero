@@ -1,5 +1,6 @@
 import { Divider, Typography } from '@mui/material';
 import React, { FC } from 'react';
+import { HeroPageRowContent, HeroPageRowTitle } from './HeroPageRow.style';
 
 type Props = {
   title: string,
@@ -9,10 +10,10 @@ type Props = {
 export const HeroPageRow: FC<Props> = ({ title, content }) => {
   return (
     <>
-      <Typography sx={{ fontSize: 24 }}>
+      <Typography sx={HeroPageRowTitle}>
         {title}:
         <br />
-        <Typography sx={{ fontSize: 18, color: 'gray', wordWrap: 'break-word' }}>
+        <Typography sx={HeroPageRowContent}>
           {content}
         </Typography>
       </Typography>
