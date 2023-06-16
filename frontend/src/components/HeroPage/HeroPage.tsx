@@ -20,23 +20,30 @@ export const HeroPage = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchHero = async () => {
-      setIsLoading(true);
-      try {
-        if (!id) {
-          return;
-        }
-        const data = await getHeroById(id);
-        setHero(data.data);
-      } catch (error) {
-        console.error('Error fetching heroes:', error);
-      } finally {
-        setIsLoading(false);
+  const fetchHero = async () => {
+    setIsLoading(true);
+    try {
+      if (!id) {
+        return;
       }
-    };
-    fetchHero();
+      const data = await getHeroById(id);
+      setHero(data.data);
+    } catch (error) {
+      console.error('Error fetching heroes:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!isUpdating) {
+      fetchHero();
+    }
   }, [isUpdating]);
+
+  useEffect(() => {
+    fetchHero();
+  }, []);
 
   const handleDeleteHero = async () => {
     setIsLoading(true);

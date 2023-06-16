@@ -1,0 +1,17 @@
+git clone
+
+Command to start:
+
+
+BackEnd:
+
+cd backend
+npm install
+npm start
+npm test(for tests)
+
+FrontEnd:
+
+cd frontend
+npm install
+npm start
