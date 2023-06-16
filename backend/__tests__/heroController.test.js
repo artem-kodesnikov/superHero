@@ -47,7 +47,7 @@ describe('POST /heroes', () => {
       origin_description: 'Bitten by a radioactive spider',
       superpowers: 'Agility, web-slinging, enhanced strength',
       catch_phrase: 'With great power comes great responsibility',
-      images: [{'url': 'qwe'}, {'url': 'qwe2'}]
+      images: [{ 'url': 'qwe' }, { 'url': 'qwe2' }]
     };
 
     Hero.prototype.save = jest.fn().mockResolvedValue(newHero);
@@ -61,5 +61,85 @@ describe('POST /heroes', () => {
 
     const createdHero = await Hero.findOne({ nickname: newHero.nickname });
     expect(createdHero).toBeFalsy();
+  });
+});
+
+// describe('DELETE /heroes/deleteHero/:id', () => {
+//   it('should delete a hero', async () => {
+//     const heroId = '6489d9b6fe66e62eaf85f0af';
+//     const deletedHero = {
+//       _id: heroId,
+//       nickname: 'Spider-Man',
+//       real_name: 'Peter Parker',
+//       origin_description: 'Bitten by a radioactive spider',
+//       superpowers: 'Agility, web-slinging, enhanced strength',
+//       catch_phrase: 'With great power comes great responsibility',
+//       images: [{ 'url': 'qwe' }, { 'url': 'qwe2' }]
+//     };
+
+//     Hero.findByIdAndDelete = jest.fn().mockResolvedValue(deletedHero);
+
+//     const response = await request(app).delete(`/heroes/deleteHero/${heroId}`);
+
+//     expect(response.status).toBe(200);
+//     expect(response.body).toMatchObject(deletedHero);
+
+//     expect(Hero.findByIdAndDelete).toHaveBeenCalledWith(heroId);
+//   });
+
+//   it('should handle errors when deleting a hero', async () => {
+//     const heroId = '6489d9b6fe66e62eaf85f0af';
+//     const error = new Error('Internal Server Error');
+
+//     Hero.findByIdAndDelete = jest.fn().mockRejectedValue(error);
+
+//     const response = await request(app).delete(`/heroes/deleteHero/${heroId}`);
+
+//     expect(response.status).toBe(400);
+//     expect(response.body).toEqual({ message: 'Delete error' });
+//   });
+// });
+
+describe('PUT /heroes/:id', () => {
+  it('should update a hero', async () => {
+    const heroId = 'hero_id';
+    const updatedHero = {
+      _id: heroId,
+      nickname: 'Spider-Man',
+      real_name: 'Peter Parker',
+      origin_description: 'Bitten by a radioactive spider',
+      superpowers: 'Agility, web-slinging, enhanced strength',
+      catch_phrase: 'With great power comes great responsibility',
+      images: [{ 'url': 'qwe' }, { 'url': 'qwe2' }]
+    };
+
+    Hero.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedHero);
+
+    const response = await request(app).put(`/heroes/updateHero/${heroId}`).send(updatedHero);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject(updatedHero);
+
+    expect(Hero.findByIdAndUpdate).toHaveBeenCalledWith(
+      heroId,
+      expect.objectContaining(updatedHero),
+      expect.objectContaining({
+        new: true,
+        runValidators: true
+      })
+    );
+  });
+
+  it('should handle errors when updating a hero', async () => {
+    const heroId = 'hero-id-123';
+    const error = new Error('Internal Server Error');
+
+    Hero.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+    console.error = jest.fn();
+
+    const response = await request(app).put(`/heroes/updateHero/${heroId}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: 'Delete error' });
   });
 });
